@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
+        <title>Desktop Controller</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+        <link rel="stylesheet" href="./bower_components/angular-material/angular-material.css"/>
+        <link rel="stylesheet" href="assets/app.css"/>
+
+        <style type="text/css">
+            /**
+            * Hide when Angular is not yet loaded and initialized
+            */
+            [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+                display: none !important;
+            }
+        </style>
+
+        <link rel="icon" sizes="192x192" href="assets/touch-icon-192x192.png">
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="assets/apple-touch-icon-180x180-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="assets/apple-touch-icon-152x152-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/apple-touch-icon-120x120-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="assets/apple-touch-icon-76x76-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="assets/apple-touch-icon-precomposed.png">        
+    </head>
+
+    <body ng-app="app" layout="row" ng-controller="MainController as ul" ng-cloak ng-model="down" ng-class="{down: down}">
+
+        <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+
+            <md-toolbar layout="row" class="md-whiteframe-z1">
+                <h1>Desktop Controller</h1>
+            </md-toolbar>
+
+            <md-content flex id="content">
+                <md-content class="md-padding">
+                    <% if (!!error) { %>
+                    <h1><%= message %> <small><%= error.status %></small></h1>
+                    <pre class="stack">
+                        <%= error.stack.trim() %>
+                    </pre>
+                    <% } %>
+                    <md-card>
+                        <md-card-content>
+                            <h2 class="md-title">Shutdown</h2>
+                            <p>
+                                <md-switch class="md-primary" ng-model="enableShutdown" ng-init="enableShutdown = false"/>
+                                {{enableShutdown? 'Disable': 'Enable'}} button
+                            </p>
+                        </md-card-content>
+                        <div class="md-actions" layout="row" layout-align="end center">
+                            <md-button ng-click="shutdown()" class="md-raised md-primary" ng-disabled="!enableShutdown">
+                                Shutdown now
+                            </md-button>
+                        </div>
+                    </md-card>
+                    <br/>
+                    <md-card>
+                        <md-card-content>
+                            <h2 class="md-title">Volume</h2>
+                            <p>
+                                <md-slider flex class="md-primary" md-discrete ng-model="volume" ng-change="changeVolume()" step="10" min="0" max="100" aria-label="volume"/>
+                            </p>
+                        </md-card-content>
+                    </md-card>
+                </md-content>
+            </md-content>
+
+        </div>
+
+        <script src="./bower_components/angular/angular.js"></script>
+        <script src="./bower_components/angular-animate/angular-animate.js"></script>
+        <script src="./bower_components/angular-aria/angular-aria.js"></script>
+        <script type="text/javascript" src="./bower_components/angular-material/angular-material.js"></script>
+
+        <script src="./src/main/Main.js"></script>
+        <script src="./src/main/MainController.js"></script>
+        <script src="./src/app.js"></script>
+    </body>
+</html>
